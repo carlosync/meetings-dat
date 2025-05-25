@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sexta-feira Estratégica TI - Rotina Interativa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Visualization & Content Choices:
+        - Report Purpose & Schedule: Static text in header (Goal: Inform, Method: HTML/Tailwind).
+        - Weekly Topics (Detailed): Presented as structured lists within each week's tab using HTML/Tailwind cards (Goal: Inform, Method: Dynamically shown/hidden sections, Interaction: Tab selection). Responsibles and durations are part of these lists, with durations visually indicated. Unicode icons for visual cues (e.g., ⏱️, 👤).
+        - Summary Table: HTML table under 'Visão Geral' tab (Goal: Compare/Organize, Method: Static HTML/Tailwind table, improved for no horizontal scroll).
+        - Notes: Static text in footer, right-aligned (Goal: Inform, Method: HTML/Tailwind).
+        - Justification: These methods directly translate the report's textual and tabular information into a clear, accessible, and interactive web format without needing complex visualizations.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4; /* Bege muito claro/branco osso */
+        }
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .nav-button:hover {
+            background-color: #e0e7ff; /* Azul muito claro no hover */
+            color: #3b82f6; /* Azul Tailwind blue-500 */
+        }
+        .nav-button.active {
+            background-color: #3b82f6; /* Azul Tailwind blue-500 */
+            color: white;
+            border-color: #2563eb; /* Azul Tailwind blue-600 */
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .topic-card {
+            background-color: #ffffff;
+            border-left: 4px solid #4A90E2; /* Azul de destaque */
+        }
+        .responsible-badge {
+            background-color: #e0e7ff;
+            color: #3b82f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .duration-badge {
+            background-color: #d1fae5; /* Verde claro */
+            color: #067647; /* Verde escuro */
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        /* Estilos para a tabela melhorada */
+        .improved-table th, .improved-table td {
+            white-space: normal; /* Permite quebra de linha */
+            word-wrap: break-word; /* Quebra palavras longas */
+        }
+        .improved-table th:first-child, .improved-table td:first-child {
+            width: 15%; /* Ajuste a largura da primeira coluna (Semana) */
+        }
+         .improved-table th:not(:first-child), .improved-table td:not(:first-child) {
+            width: 28.33%; /* Ajuste a largura das outras colunas */
+        }
+    </style>
+</head>
+<body class="text-[#333333]">
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+        <header class="text-center py-6 sm:py-8 mb-6 sm:mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-[#4A90E2] mb-2">Sexta-feira Estratégica DAT</h1>
+            <p class="text-lg sm:text-xl text-gray-700 mb-3">Rotina Interativa das Reuniões Semanais</p>
+            <p class="text-md text-gray-600 font-semibold bg-white p-3 rounded-lg shadow-sm inline-block">
+                🗓️ Todas as sextas-feiras, das <time>14:30</time> às <time>15:30</time>
+            </p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 pb-4 border-b border-gray-300">
+            <button data-target="overview" class="nav-button active">Visão Geral</button>
+            <button data-target="semana1" class="nav-button">Semana 1</button>
+            <button data-target="semana2" class="nav-button">Semana 2</button>
+            <button data-target="semana3" class="nav-button">Semana 3</button>
+            <button data-target="semana4" class="nav-button">Semana 4</button>
+        </nav>
+
+        <main id="app-content" class="bg-white p-4 sm:p-6 rounded-xl shadow-lg min-h-[400px]">
+            <section id="overview" class="content-section active">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-[#4A90E2] mb-3 sm:mb-4">Visão Geral da Rotina Semanal</h2>
+                <p class="mb-5 sm:mb-6 text-gray-700 leading-relaxed">
+                    Bem-vindo à visão geral da "Sexta-feira Estratégica"! Esta seção apresenta uma tabela resumo com os principais tópicos de cada semana.
+                    Use as abas acima para navegar e explorar os detalhes específicos de cada pauta semanal, incluindo responsáveis e a duração estimada para cada discussão.
+                    O objetivo é fornecer um acesso rápido e claro à estrutura das nossas reuniões de TI.
+                </p>
+                <div class="overflow-x-auto rounded-lg shadow">
+                    <table class="w-full text-sm text-left text-gray-700 improved-table">
+                        <thead class="text-xs text-white uppercase bg-[#4A90E2]">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Semana</th>
+                                <th scope="col" class="px-4 py-3">Tópico Principal 1</th>
+                                <th scope="col" class="px-4 py-3">Tópico Principal 2</th>
+                                <th scope="col" class="px-4 py-3">Tópico Principal 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium text-gray-900">Semana 1</td>
+                                <td class="px-4 py-3">Objetivo da Reunião e Orientações do Gerente</td>
+                                <td class="px-4 py-3">Resultados dos Chamados (Mês Anterior)</td>
+                                <td class="px-4 py-3">Metas: PIM Colaboradores, PAM Departamento</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium text-gray-900">Semana 2</td>
+                                <td class="px-4 py-3">Acompanhamento Indicadores PIM e PAM</td>
+                                <td class="px-4 py-3">Projetos (Equipes/Internos TI)</td>
+                                <td class="px-4 py-3">Informações do Gerente</td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium text-gray-900">Semana 3</td>
+                                <td class="px-4 py-3">Resultados Parciais dos Chamados (Mês Atual)</td>
+                                <td class="px-4 py-3">Análise de Indicadores de Metas do Departamento</td>
+                                <td class="px-4 py-3">-</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="px-4 py-3 font-medium text-gray-900">Semana 4</td>
+                                <td class="px-4 py-3">Feedback da Equipe/Colaborador / Como foi o mês para a Equipe X</td>
+                                <td class="px-4 py-3">Orientações Finais do Gerente / Indicadores de Metas (se necessário)</td>
+                                <td class="px-4 py-3">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="semana1" class="content-section">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-[#4A90E2] mb-3 sm:mb-4">Detalhes da Semana 1 do Mês</h2>
+                <p class="mb-5 sm:mb-6 text-gray-700 leading-relaxed">
+                    A primeira semana do mês é crucial para definir o tom e revisar o desempenho. Focamos no alinhamento de objetivos, na análise dos resultados de chamados do mês anterior e no acompanhamento das metas PIM e PAM.
+                    Esta estrutura visa garantir que todos estejam na mesma página e cientes dos progressos e desafios.
+                </p>
+                <div class="space-y-4">
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">1. Objetivo da Reunião e Orientações Gerais do Gerente</h3>
+                        <p class="text-gray-600 text-sm mb-1">Alinhamento sobre os principais focos da semana/mês.</p>
+                        <p class="text-gray-600 text-sm mb-1">Dicas para otimização de processos internos.</p>
+                        <p class="text-gray-600 text-sm mb-1">Repasse de informações relevantes recebidas da diretoria.</p>
+                        <p class="text-gray-600 text-sm mb-3">Esclarecimento de dúvidas gerais.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="duration-badge">⏱️ 15 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">2. Apresentação dos Resultados dos Chamados (Mês Anterior)</h3>
+                        <p class="text-gray-600 text-sm mb-1">Apresentação do relatório de chamados.</p>
+                        <p class="text-gray-600 text-sm mb-1">Análise quantitativa e/ou qualitativa dos chamados.</p>
+                        <p class="text-gray-600 text-sm mb-1">Identificação de tendências e pontos de melhoria.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="responsible-badge">👤 Analista de TI</span>
+                            <span class="duration-badge">⏱️ 35 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">3. Sistema de Metas (PIM/PAM)</h3>
+                        <p class="text-gray-600 text-sm mb-1">Discussão sobre o andamento dos indicadores do PIM de cada colaborador ou equipe específica.</p>
+                        <p class="text-gray-600 text-sm mb-1">Esclarecimento de dúvidas específicas sobre as metas individuais.</p>
+                        <p class="text-gray-600 text-sm mb-3">Análise do PAM do departamento: progresso, desafios e próximos passos.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="responsible-badge">👤 Gerente de TI</span>
+                            <span class="duration-badge">⏱️ 15 minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="semana2" class="content-section">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-[#4A90E2] mb-3 sm:mb-4">Detalhes da Semana 2 do Mês</h2>
+                <p class="mb-5 sm:mb-6 text-gray-700 leading-relaxed">
+                    Na segunda semana, continuamos o acompanhamento das metas e mergulhamos no status dos projetos em andamento, tanto os das equipes quanto os internos da TI.
+                    É também um momento para o gerente compartilhar informações e repasses importantes para o alinhamento contínuo.
+                </p>
+                 <div class="space-y-4">
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">1. Acompanhamento dos Indicadores de Metas (PIM/PAM)</h3>
+                        <p class="text-gray-600 text-sm mb-1">Breve atualização sobre os indicadores PIM e o progresso do PAM.</p>
+                        <p class="text-gray-600 text-sm mb-3">Identificação de possíveis desvios e necessidade de ajustes.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="responsible-badge">👤 Gerente de TI</span>
+                            <span class="duration-badge">⏱️ 15 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">2. Status e Discussão de Projetos</h3>
+                        <p class="text-gray-600 text-sm mb-1">Apresentação do andamento dos projetos (por equipe ou líder).</p>
+                        <p class="text-gray-600 text-sm mb-1">Discussão sobre projetos internos da TI.</p>
+                        <p class="text-gray-600 text-sm mb-3">Identificação de impedimentos, recursos e próximos passos.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="duration-badge">⏱️ 30 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">3. Informações e Repasses do Gerente</h3>
+                        <p class="text-gray-600 text-sm mb-1">Comunicações gerais da gerência.</p>
+                        <p class="text-gray-600 text-sm mb-3">Novidades, mudanças organizacionais ou outras informações pertinentes.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                             <span class="responsible-badge">👤 Gerente de TI</span>
+                            <span class="duration-badge">⏱️ 15 minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="semana3" class="content-section">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-[#4A90E2] mb-3 sm:mb-4">Detalhes da Semana 3 do Mês</h2>
+                <p class="mb-5 sm:mb-6 text-gray-700 leading-relaxed">
+                    A terceira semana é dedicada a uma análise mais aprofundada. Verificamos os resultados parciais dos chamados do mês corrente para identificar tendências emergentes e realizamos uma análise detalhada dos indicadores de metas do departamento, buscando estratégias para otimizar o desempenho.
+                </p>
+                <div class="space-y-4">
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">1. Resultados Parciais dos Chamados (Mês Atual)</h3>
+                        <p class="text-gray-600 text-sm mb-1">Análise preliminar dos chamados do mês corrente.</p>
+                        <p class="text-gray-600 text-sm mb-3">Identificação de picos, problemas recorrentes ou situações críticas.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="responsible-badge">👤 Analista de TI</span>
+                            <span class="duration-badge">⏱️ 25 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">2. Análise dos Indicadores de Metas do Departamento</h3>
+                        <p class="text-gray-600 text-sm mb-1">Análise aprofundada dos indicadores PIM e PAM.</p>
+                        <p class="text-gray-600 text-sm mb-1">Discussão sobre estratégias para alcançar os objetivos.</p>
+                        <p class="text-gray-600 text-sm mb-3">Brainstorming para soluções de desafios.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="responsible-badge">👤 Gerente de TI</span>
+                            <span class="duration-badge">⏱️ 20 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">3. Informações e Repasses do Gerente</h3>
+                        <p class="text-gray-600 text-sm mb-1">Comunicações gerais da gerência.</p>
+                        <p class="text-gray-600 text-sm mb-3">Orientação sobre contratos, pagamentos etc.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                             <span class="responsible-badge">👤 Gerente de TI</span>
+                            <span class="duration-badge">⏱️ 15 minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="semana4" class="content-section">
+                <h2 class="text-2xl sm:text-3xl font-semibold text-[#4A90E2] mb-3 sm:mb-4">Detalhes da Semana 4 do Mês</h2>
+                <p class="mb-5 sm:mb-6 text-gray-700 leading-relaxed">
+                    Na última semana do mês, abrimos espaço para feedback e reflexão. Uma equipe ou técnico tem a oportunidade de compartilhar suas experiências. O gerente faz o fechamento do mês, repassando orientações finais e, se necessário, revisando os indicadores de metas. É um momento de aprendizado e preparação para o próximo ciclo.
+                </p>
+                <div class="space-y-4">
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">1. Feedback e Destaques do Mês por Equipe/Colaborador</h3>
+                        <p class="text-gray-600 text-sm mb-1">Espaço para equipe (sorteio/voluntária) ou técnico compartilhar experiências, desafios, aprendizados e sugestões.</p>
+                        <p class="text-gray-600 text-sm mb-3">Objetivo: promover troca de conhecimento, reconhecimento e identificação de boas práticas.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="duration-badge">⏱️ 30 minutos</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 rounded-lg shadow-md topic-card">
+                        <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mb-2">2. Orientações Finais do Gerente e Fechamento do Mês</h3>
+                        <p class="text-gray-600 text-sm mb-1">Considerações finais sobre o desempenho do mês.</p>
+                        <p class="text-gray-600 text-sm mb-1">Repasse de orientações importantes para o próximo período.</p>
+                        <p class="text-gray-600 text-sm mb-1">Se necessário, breve revisão dos indicadores de metas.</p>
+                        <p class="text-gray-600 text-sm mb-3">Abertura para dúvidas finais e sugestões gerais.</p>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <span class="responsible-badge">👤 Gerente de TI</span>
+                            <span class="duration-badge">⏱️ 25 minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-10 sm:mt-12 py-6 border-t border-gray-300">
+            <div class="mb-3 text-sm text-gray-600 bg-white p-4 rounded-lg shadow-sm inline-block max-w-full mx-auto text-left">
+                <h3 class="font-semibold mb-1 text-gray-800">Observações Importantes:</h3>
+                <p>A duração estimada para cada tópico é uma sugestão e pode ser ajustada conforme a necessidade.</p>
+                <p>É fundamental que os responsáveis por cada tópico preparem-se antecipadamente.</p>
+                <p>Este guia pode ser revisado e adaptado periodicamente para melhor atender às necessidades do departamento.</p>
+            </div>
+            <p class="text-sm text-gray-500 mt-4">&copy; <span id="currentYear"></span> Departamento de TI. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+            const appContent = document.getElementById('app-content');
+
+            // Set "Visão Geral" as active by default
+            document.querySelector('.nav-button[data-target="overview"]').classList.add('active');
+            document.getElementById('overview').classList.add('active');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const targetId = this.dataset.target;
+
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    let foundActive = false;
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                            foundActive = true;
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                     // Fallback if no section matches, though this shouldn't happen with correct data-target attributes
+                    if (!foundActive && contentSections.length > 0) {
+                        contentSections[0].classList.add('active'); // Show the first section as a fallback
+                        navButtons[0].classList.add('active'); // Also activate the first button
+                    }
+                });
+            });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
