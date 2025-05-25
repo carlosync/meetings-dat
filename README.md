@@ -25,7 +25,7 @@ Este projeto é uma página HTML interativa desenvolvida para organizar e aprese
 Para visualizar e interagir com esta página, basta abrir o arquivo `Home.html` em qualquer navegador web moderno.
 
 1.  **Baixe ou clone** o repositório.
-2.  **Abra** o arquivo `Home.html` no seu navegador de preferência.
+2.  **Abra** o arquivo `index.html` no seu navegador de preferência.
 
 As abas na parte superior da página permitirão que você navegue entre a "Visão Geral" e os detalhes de cada "Semana".
 
